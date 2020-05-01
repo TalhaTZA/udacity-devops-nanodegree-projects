@@ -72,9 +72,8 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: 
-                  - 's3:GetObject'
-                Resource: 
-                  - 'arn:aws:s3:::udacity-demo-1/*'
+                  - 's3:*'
+                Resource: '*'
   
   WebServerInstanceProfile:
     Type: 'AWS::IAM::InstanceProfile'
@@ -88,16 +87,17 @@ Resources:
     Properties:
       UserData:
         Fn::Base64: !Sub |
-         #!/bin/bash
-          apt-get update -y
-          apt-get install unzip awscli -y
-          apt-get install apache2 -y
-          systemctl start apache2.service
+          #!/bin/bash
+          sudo apt-get update -y
+          sudo apt-get install unzip awscli -y
+          sudo apt-get install apache2 -y
+          sudo rm /var/www/html/index.html
           cd /var/www/html
-          aws s3 cp s3://udacity-demo-1/udacity.zip .
-          unzip -o udacity.zip
+          sudo aws s3 cp s3://udacity-demo-1/udacity.zip .
+          sudo unzip -o udacity.zip
+          sudo systemctl start apache2.service
 
-      ImageId: ami-005bdb005fb00e791
+      ImageId: ami-003634241a8fcdec0
       IamInstanceProfile: !Ref WebServerInstanceProfile
       SecurityGroups:
       - Ref: WebServerSecGroup
