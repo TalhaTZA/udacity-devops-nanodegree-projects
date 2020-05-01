@@ -98,7 +98,6 @@ Resources:
           unzip -o udacity.zip
 
       ImageId: ami-005bdb005fb00e791
-      KeyName : key-pair-name # This should be key name from ec2 interface key pair
       IamInstanceProfile: !Ref WebServerInstanceProfile
       SecurityGroups:
       - Ref: WebServerSecGroup
