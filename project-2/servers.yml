@@ -171,7 +171,7 @@ Resources:
 
 Outputs:
   LoadBalancerEndpoint: 
-    Description: Endpoint to use for accessing the loadbanlancer
+    Description: Endpoint to use for accessing the load balancer
     Value: !Join [ "", [ 'http://', !GetAtt WebAppLB.DNSName  ]]
     Export:
       Name: !Sub ${EnvironmentName}-LBURL
